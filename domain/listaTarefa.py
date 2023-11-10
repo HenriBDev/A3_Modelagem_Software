@@ -1,6 +1,5 @@
-import uuid
-
 class ListaTarefa():
     def __init__(self):
-        self.id = uuid.uuid4()
+        self.id = None
+        self.descricao = None
         self.tarefa = None

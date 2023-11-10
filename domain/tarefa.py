@@ -1,8 +1,6 @@
-import uuid
-
 class Tarefa():
-    def __init__(self,tempo,status,descricao):
-        self.id = uuid.uuid4()
-        self.tempo = tempo
-        self.status = status
+    def __init__(self,descricao):
+        self.id = None
+        self.tempo = None
+        self.status = False
         self.descricao = descricao
