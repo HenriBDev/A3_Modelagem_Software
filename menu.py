@@ -3,8 +3,11 @@ TAREFA_DIR = os.path.dirname(os.path.abspath("view/tarefaView.py"))
 sys.path.append(os.path.dirname(TAREFA_DIR))
 LISTA_DIR = os.path.dirname(os.path.abspath("view/listaView.py"))
 sys.path.append(os.path.dirname(LISTA_DIR))
+LOGIN_DIR = os.path.dirname(os.path.abspath("view/loginView.py"))
+sys.path.append(os.path.dirname(LOGIN_DIR))
 from view.tarefaView import TarefaView
 from view.listaView import ListaView
+from view.loginView import LoginView
 class Menu:        
     def exibir_menu(self):
         print("------------LISTA DE TAREFAS------------\no que voce deseja fazer ?\n1 - Adicionar tarefas ?\n2 - concluir tarefas ?\n3 - Remover tarefas ?\n4 - Checar a lista ?\n5 - sair ?\n")
@@ -19,6 +22,8 @@ class Menu:
             TarefaView.excluir_tarefa()
         elif(valorDigitado == '4'):
             ListaView.exibir_listas()
+        elif(valorDigitado == '5'):
+            LoginView.sair()
            
 
 if __name__ == '__main__':

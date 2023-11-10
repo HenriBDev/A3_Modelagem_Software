@@ -5,19 +5,25 @@ from domain.usuario import Usuario
 import os, sys
 MENU_DIR = os.path.dirname(os.path.abspath("menu.py"))
 sys.path.append(os.path.dirname(MENU_DIR))
-from menu import Menu
+LOGIN_BD_DIR = os.path.dirname(os.path.abspath("model/loginView.py"))
+sys.path.append(os.path.dirname(LOGIN_BD_DIR))
+from model.loginModel import loginModel
+
 class LoginView: 
-    usuario = Usuario ("Abraão","teste","123");
+    
             
     def exibir_mensagem(self, mensagem):
         print(mensagem)
 
     def login(self):
+        from menu import Menu
         while True:
             email = input("Digite seu e-mail: ")
             senha = input("Digite sua senha: ")
+            user = loginModel.login(email,senha)
+            usuario= Usuario(user[1],user[2],user[3])
 
-            if email in self.usuario.email and self.usuario.senha == senha:
+            if email in usuario.email and  usuario.senha == senha:
                 self.exibir_mensagem("Login bem-sucedido!")
                 menu = Menu()
                 menu.navegar_menu()
@@ -36,11 +42,14 @@ class LoginView:
                 novo_nome = input("Digite o seu nome: ")
                 nova_senha = input("Digite a senha para o novo usuário: ")
                 novo_usuario = Usuario(novo_nome,novo_email,nova_senha)
+
+                loginModel.cadastrar_usuario(novo_usuario)
+                loginModel.listar_usuario()
                 self.exibir_mensagem("Novo usuário cadastrado com sucesso!")                
                 break
 
-if __name__ == '__main__':
-    view = LoginView()
-    view.login()
-    view.cadastrar_usuario()
+    def sair(self):
+        self.exibir_mensagem("Log out realizado com sucesso!")
+        self.login()
+
                 
