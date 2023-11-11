@@ -3,5 +3,4 @@ class Usuario():
         self.id = None
         self.nome = nome
         self.email = email
-        self.senha = senha
-        self.listaTarefas = []
+        self.senha = senha        
