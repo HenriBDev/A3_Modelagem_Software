@@ -30,7 +30,7 @@ class loginModel:
     def login(email,senha):
         try:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
-            cur = con.cursor() 
+            cur = con.cursor()
             select = "SELECT * FROM USUARIO WHERE email=? AND senha=?"
             cur.execute(select,(email,senha))
             user = cur.fetchone()

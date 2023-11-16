@@ -23,7 +23,7 @@ class LoginView:
             user = loginModel.login(email,senha)
             usuario= Usuario(user[1],user[2],user[3])
 
-            if email in usuario.email and  usuario.senha == senha:
+            if email in usuario.email and usuario.senha == senha:
                 self.exibir_mensagem("Login bem-sucedido!")
                 menu = Menu()
                 menu.navegar_menu()
