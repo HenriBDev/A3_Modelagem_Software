@@ -1,7 +1,7 @@
 import os, sys
 CURRENT_DIR = os.path.dirname(os.path.abspath("domain/tarefa.py"))
 sys.path.append(os.path.dirname(CURRENT_DIR))
-TAREFA_BD_DIR = os.path.dirname(os.path.abspath("model/tarefaView.py"))
+TAREFA_BD_DIR = os.path.dirname(os.path.abspath("model/tarefaModel.py"))
 sys.path.append(os.path.dirname(TAREFA_BD_DIR))
 from domain.tarefa import Tarefa
 from model.tarefaModel import TarefaModel
@@ -16,7 +16,10 @@ class TarefaView:
                 print(f"Tarefa '{tarefa}' alterada de lista")
 
         def editar_tarefa(self):
-                tarefa = input("Qual tarefa deseja alterar ? (Digite o id dela)")
+                print(f"{lista}")
+                tarefa_id = input("Qual tarefa deseja alterar ? (Digite o id dela)")
+                input("Digite o descricao da tarefa")
+                input("Digite o tempo da tarefa")                
                 concluir = input("Deseja concluir tarefa ? (S/N)")
 
         def cadastrar_tarefa():
@@ -27,5 +30,6 @@ class TarefaView:
                 
                 
         def concluir_tarefa(self):
+               tarefa_id = input("Qual tarefa deseja concluir ? (Digite o id dela)")
                concluir = input("Deseja concluir tarefa ? (S/N)")
                

@@ -5,51 +5,57 @@ from domain.usuario import Usuario
 import os, sys
 MENU_DIR = os.path.dirname(os.path.abspath("menu.py"))
 sys.path.append(os.path.dirname(MENU_DIR))
-LOGIN_BD_DIR = os.path.dirname(os.path.abspath("model/loginView.py"))
+LOGIN_BD_DIR = os.path.dirname(os.path.abspath("model/loginModel.py"))
 sys.path.append(os.path.dirname(LOGIN_BD_DIR))
 from model.loginModel import loginModel
+LOGIN_CONTROLLER_DIR = os.path.dirname(os.path.abspath("controller/loginController.py"))
+sys.path.append(os.path.dirname(LOGIN_CONTROLLER_DIR))
+from controller.loginController import loginController
 
-class LoginView: 
+class LoginView:                 
     
-            
-    def exibir_mensagem(self, mensagem):
-        print(mensagem)
-
     def login(self):
         from menu import Menu
         while True:
             email = input("Digite seu e-mail: ")
             senha = input("Digite sua senha: ")
-            user = loginModel.login(email,senha)
-            usuario= Usuario(user[1],user[2],user[3])
+            
 
-            if email in usuario.email and usuario.senha == senha:
-                self.exibir_mensagem("Login bem-sucedido!")
+
+            if (loginController.verificarUsuarioCorreto(email,senha)):
+                print("Login bem-sucedido!")
                 menu = Menu()
                 menu.navegar_menu()
                 break
             else:
-                self.exibir_mensagem("E-mail ou senha incorretos. Tente novamente.")
+                print("E-mail ou senha incorretos. Tente novamente.")
+
     
     def cadastrar_usuario(self):
+        from menu import Menu
         while True:
 
             novo_email = input("Digite o seu e-mail: ")
 
-            if novo_email in self.usuario.email:
-                self.exibir_mensagem("O e-mail informado já existe. Tente novamente.")
+            if (loginController.verificarUsuarioExiste(novo_email)):
+                print("O e-mail informado já existe. Tente novamente.")
             else:                
                 novo_nome = input("Digite o seu nome: ")
                 nova_senha = input("Digite a senha para o novo usuário: ")
-                novo_usuario = Usuario(novo_nome,novo_email,nova_senha)
+                novo_usuario = Usuario(novo_email,nova_senha)
+                novo_usuario.nome = novo_nome
 
-                loginModel.cadastrar_usuario(novo_usuario)
-                loginModel.listar_usuario()
-                self.exibir_mensagem("Novo usuário cadastrado com sucesso!")                
-                break
+                if(loginController.cadastrarUsuario(novo_usuario)):
+                    print("Novo usuário cadastrado com sucesso!")
+                    menu = Menu()
+                    menu.navegar_menu()
+                    break
+                else:
+                    print("Erro ao cadastrar usuário")
+                
 
     def sair(self):
-        self.exibir_mensagem("Log out realizado com sucesso!")
-        self.login()
+        sys.exit("Log out realizado com sucesso!")
+            
 
                 
