@@ -43,4 +43,15 @@ class TarefaModel:
             con.commit()
             cur.close()
         except Exception as e:
-            print(f"Erro ao excluir tarefa: {str(e)}")
+            print(f"Erro ao excluir tarefa: {str(e)}")    
+    
+    def verificar_tarefas_na_lista(lista):
+        try:
+            con = sqlite3.connect("BD-ListaDeTarefa.db")
+            cur = con.cursor()
+            select= "SELECT FROM TAREFA WHERE lista_id=?"        
+            cur.execute(select,(lista.id)) 
+            con.commit()
+            cur.close()
+        except Exception as e:
+            print(f"Erro ao listar lista: {str(e)}")
