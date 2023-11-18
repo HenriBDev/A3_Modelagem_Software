@@ -8,14 +8,30 @@ sys.path.append(os.path.dirname(LOGIN_DIR))
 from view.tarefaView import TarefaView
 from view.listaView import ListaView
 from view.loginView import LoginView
-class Menu:        
-    def exibir_menu(self):
-        print("------------LISTA DE TAREFAS------------\no que voce deseja fazer ?\n1 - Adicionar tarefas ?\n2 - concluir tarefas ?\n3 - Remover tarefas ?\n4 - Checar a lista ?\n5 - sair ?\n")
+class Menu:  
+    def exibir_menu_inicial(self):            
+        while True:        
+            print("------------Menu Inicial------------\n1 - Fazer Login\n2 - Cadastrar usuário")
+
+            valor_digitado = input("O que deseja fazer ?\n")
+            if(valor_digitado == '1'):
+                LoginView.login(self)
+                break
+            elif(valor_digitado == '2'):
+                LoginView.cadastrar_usuario(self)
+                break
+            else:
+                print('Valor digitado errado')
+
+        
+
+    def exibir_menu_principal(self):
+        print("------------LISTA DE TAREFAS------------\no que voce deseja fazer ?\n1 - Criar Lista ?\n2 - concluir tarefas ?\n3 - Remover tarefas ?\n4 - Checar a lista ?\n5 - sair ?\n")
     def navegar_menu(self):
-        self.exibir_menu()
+        self.exibir_menu_principal()
         valorDigitado = input()
         if(valorDigitado == '1'):
-           TarefaView.cadastrar_tarefa()
+           ListaView.cadastrar_listas()
         elif(valorDigitado == '2'):
             TarefaView.concluir_tarefa()
         elif(valorDigitado == '3'):
@@ -23,7 +39,7 @@ class Menu:
         elif(valorDigitado == '4'):
             ListaView.exibir_listas()
         elif(valorDigitado == '5'):
-            LoginView.sair()
+            LoginView.sair(self)
            
 
 if __name__ == '__main__':
