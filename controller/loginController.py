@@ -6,14 +6,16 @@ from model.loginModel import loginModel
 
 class loginController:
     
-    def verificarUsuarioCorreto(email,senha) -> bool:        
+    def verificar_usuario_correto(email,senha) -> bool:        
         return type(loginModel.login(email, senha)) == tuple
     
-    def verificarUsuarioExiste(email) -> bool:
+    def verificar_usuario_existe(email) -> bool:
         for usuario in loginModel.listar_usuario():
             if usuario[2] == email:
                 return True
         
         return False
-    def cadastrarUsuario(Usuario: object) -> bool:
-        return loginModel.cadastrar_usuario(Usuario);
+    
+    def cadastrar_usuario(Usuario: object):
+        return loginModel.cadastrar_usuario(Usuario)
+
