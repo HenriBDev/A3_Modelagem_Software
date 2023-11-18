@@ -6,7 +6,7 @@ class TarefaModel:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
             cur = con.cursor()
             insert= "INSERT INTO TAREFA VALUES(?,?,?,?,?);"        
-            cur.execute(insert,(tarefa.id,tarefa.descricao,tarefa.status,tarefa.tempo,tarefa.lista_id)) 
+            cur.execute(insert,(tarefa.id,tarefa.descricao,tarefa.status,tarefa.tempo,tarefa.lista_id))
             con.commit()
             cur.close()
         except Exception as e:
@@ -43,4 +43,18 @@ class TarefaModel:
             con.commit()
             cur.close()
         except Exception as e:
-            print(f"Erro ao excluir tarefa: {str(e)}")
+            print(f"Erro ao excluir tarefa: {str(e)}")    
+    
+    def verificar_tarefas_na_lista(lista):
+        try:
+            con = sqlite3.connect("BD-ListaDeTarefa.db")
+            cur = con.cursor()
+            select= "SELECT FROM TAREFA WHERE lista_id=?"        
+            cur.execute(select,(lista.id))
+            tarefas = cur.fetchall()
+            con.commit()
+            cur.close()
+            con.close()
+            return tarefas
+        except Exception as e:
+            print(f"Erro ao listar lista: {str(e)}")

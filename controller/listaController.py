@@ -3,6 +3,7 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(CURRENT_DIR)
 sys.path.append(PARENT_DIR)
 from model.listaModel import ListaModel
+from model.tarefaModel import TarefaModel
 
 class listaController:
     
@@ -20,4 +21,16 @@ class listaController:
         if not self.verificar_lista_existente(lista):
             return ListaModel.cadastrar_lista(lista)
         else:
-            print("A lista não pode ser cadastrada.")
+            print("A lista não pôde ser cadastrada.")
+            
+    def verificar_se_tem_tarefas(lista: object) -> bool:
+        if len(TarefaModel.verificar_tarefas_na_lista(lista)) > 0:
+            return True
+        
+        return False
+    
+    def deletar_lista(self, lista):
+        if not self.verificar_se_tem_tarefas(lista):
+            ListaModel.excluir_lista(lista) 
+        else:
+            print('A lista não pôde ser excluída.')
