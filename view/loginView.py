@@ -16,16 +16,18 @@ class LoginView:
     
     def login(self):
         from menu import Menu
+        
         while True:
             email = input("Digite seu e-mail: ")
-            senha = input("Digite sua senha: ")
-            
-
-
-            if (loginController.verificarUsuarioCorreto(email,senha)):
+            senha = input("Digite sua senha: ")            
+            usuario_encontrado =loginController.verificar_usuario_correto(email,senha)
+            if (usuario_encontrado):
                 print("Login bem-sucedido!")
+                usuario_logado = Usuario(usuario_encontrado[2],usuario_encontrado[3])
+                usuario_logado.id = usuario_encontrado[0]
+                usuario_logado.nome = usuario_encontrado[1]               
                 menu = Menu()
-                menu.navegar_menu()
+                menu.navegar_menu(usuario_logado)
                 break
             else:
                 print("E-mail ou senha incorretos. Tente novamente.")
@@ -48,7 +50,7 @@ class LoginView:
                 if(loginController.cadastrarUsuario(novo_usuario)):
                     print("Novo usuário cadastrado com sucesso!")
                     menu = Menu()
-                    menu.navegar_menu()
+                    menu.navegar_menu(novo_usuario)
                     break
                 else:
                     print("Erro ao cadastrar usuário")

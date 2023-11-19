@@ -26,14 +26,15 @@ class Menu:
         
 
     def exibir_menu_principal(self):
-        print("------------LISTA DE TAREFAS------------\no que voce deseja fazer ?\n1 - Criar Lista ?\n2 - concluir tarefas ?\n3 - Remover tarefas ?\n4 - Checar a lista ?\n5 - sair ?\n")
-    def navegar_menu(self):
+        print("------------LISTA DE TAREFAS------------\no que voce deseja fazer ?\n1 - Criar Lista ?\n2 - Excluir Lista ?\n3 - Remover tarefas ?\n4 - Checar a lista ?\n5 - sair ?\n")
+    def navegar_menu(self,usuario: object):
         self.exibir_menu_principal()
         valorDigitado = input()
         if(valorDigitado == '1'):
-           ListaView.cadastrar_listas()
+           ListaView.cadastrar_listas(self,usuario)
         elif(valorDigitado == '2'):
-            TarefaView.concluir_tarefa()
+            listaView =ListaView()
+            listaView.excluir_lista(usuario)
         elif(valorDigitado == '3'):
             TarefaView.excluir_tarefa()
         elif(valorDigitado == '4'):
