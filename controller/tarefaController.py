@@ -6,30 +6,31 @@ from model.tarefaModel import TarefaModel
 
 class tarefaController:
     
-    def verificar_tarefa_existe(tarefa: object, lista: object) -> bool:
-        for tarefas in TarefaModel.verificar_tarefas_na_lista(lista):
+    def verificar_tarefa_existe(self,tarefa: object, lista_id) -> bool:
+        for tarefas in TarefaModel.verificar_tarefas_na_lista(lista_id):
             if tarefas[0] == tarefa.id:
                 return True
             
         return False
     
-    def cadastrar_tarefa(self, tarefa: object, lista: object):
-        if not self.verificar_tarefa_existe(tarefa, lista):
+    def cadastrar_tarefa(self, tarefa: object, lista_id):
+        if not self.verificar_tarefa_existe(tarefa, lista_id):
             TarefaModel.cadastrar_tarefa(tarefa)
+
         else:
             print("A tarefa não pôde ser cadastrada.")
             
-    def deletar_tarefa(self, tarefa: object, lista: object):
-        if self.verificar_tarefa_existe(tarefa, lista):
-            TarefaModel.excluir_tarefa(tarefa)
-        else:
-            print("A tarefa não pôde ser excluída.")
+    def deletar_tarefa(self, tarefa_id):
+            TarefaModel.excluir_tarefa(tarefa_id)       
             
-    def editar_editar(self, tarefa: object, lista: object):
-        if not self.verificar_tarefa_existe(tarefa, lista):
+    def editar_editar(self, tarefa: object, lista_id):
+        if self.verificar_tarefa_existe(tarefa, lista_id):
             TarefaModel.editar_tarefa(tarefa)
         else:
             print("A tarefa não pôde ser editada.")
 
-    def concluir_tarefa(tarefa):
-        TarefaModel.concluir_tarefa(tarefa)
+    def concluir_tarefa(self,tarefa_id):
+        TarefaModel.concluir_tarefa(tarefa_id)
+
+    def exibir_tarefa(self,lista_id):
+        return TarefaModel.exibir_tarefas(lista_id)

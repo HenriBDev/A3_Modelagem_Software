@@ -14,7 +14,6 @@ class ListaView:
                 listas = lista_controller.exibir_lista(usuario)
                 for lista in listas:
                         print(f"Listas de Tarefas:\n{lista[0]} - {lista[1]}")
-                return len(listas)
 
         def cadastrar_listas(self,usuario):
                 from menu import Menu
@@ -36,3 +35,8 @@ class ListaView:
                 if(lista_controller.deletar_lista(lista_id)):
                         print('Lista deletado com sucesso')
                         menu.navegar_menu(usuario)
+
+        def manipular_listas(self,usuario):
+               self.exibir_listas(usuario)               
+               lista_id = int(input("Qual lista deseja manipular ?\n"))
+               return lista_id

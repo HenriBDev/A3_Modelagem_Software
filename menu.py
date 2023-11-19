@@ -26,7 +26,7 @@ class Menu:
         
 
     def exibir_menu_principal(self):
-        print("------------LISTA DE TAREFAS------------\no que voce deseja fazer ?\n1 - Criar Lista ?\n2 - Excluir Lista ?\n3 - Remover tarefas ?\n4 - Checar a lista ?\n5 - sair ?\n")
+        print("------------LISTA DE TAREFAS------------\no que voce deseja fazer ?\n1 - Criar Lista ?\n2 - Excluir Lista ?\n3 - Criar tarefas ?\n4 - Editar tarefa ?\n5 - Concluir tarefa ?\n6 - Excluir tarefa ?\n7 - Sair")
     def navegar_menu(self,usuario: object):
         self.exibir_menu_principal()
         valorDigitado = input()
@@ -36,10 +36,18 @@ class Menu:
             listaView =ListaView()
             listaView.excluir_lista(usuario)
         elif(valorDigitado == '3'):
-            TarefaView.excluir_tarefa()
+            tarefaView=TarefaView()
+            tarefaView.cadastrar_tarefa(usuario)
         elif(valorDigitado == '4'):
-            ListaView.exibir_listas()
+            tarefaView=TarefaView()
+            tarefaView.editar_tarefa(usuario)
         elif(valorDigitado == '5'):
+            tarefaView=TarefaView()
+            tarefaView.concluir_tarefa(usuario)
+        elif(valorDigitado =='6'):
+            tarefaView=TarefaView()
+            tarefaView.excluir_tarefa(usuario)
+        elif(valorDigitado == '7'):
             LoginView.sair(self)
            
 

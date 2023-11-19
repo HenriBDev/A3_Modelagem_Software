@@ -34,7 +34,6 @@ class LoginView:
 
     
     def cadastrar_usuario(self):
-        from menu import Menu
         while True:
 
             novo_email = input("Digite o seu e-mail: ")
@@ -49,8 +48,7 @@ class LoginView:
 
                 if(loginController.cadastrarUsuario(novo_usuario)):
                     print("Novo usuário cadastrado com sucesso!")
-                    menu = Menu()
-                    menu.navegar_menu(novo_usuario)
+                    self.login()
                     break
                 else:
                     print("Erro ao cadastrar usuário")
