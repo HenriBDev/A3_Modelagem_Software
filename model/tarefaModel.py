@@ -27,7 +27,7 @@ class TarefaModel:
         try:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
             cur = con.cursor()
-            update= "UPDATE TAREFA set concluida=? WHERE id=?;"        
+            update= "UPDATE * TAREFA set concluida=? WHERE id=?;"        
             cur.execute(update,(tarefa.status, tarefa.id)) 
             con.commit()
             cur.close()
@@ -45,12 +45,12 @@ class TarefaModel:
         except Exception as e:
             print(f"Erro ao excluir tarefa: {str(e)}")    
     
-    def verificar_tarefas_na_lista(lista):
+    def verificar_tarefas_na_lista(lista_id):
         try:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
             cur = con.cursor()
-            select= "SELECT FROM TAREFA WHERE lista_id=?"        
-            cur.execute(select,(lista.id))
+            select= f"SELECT * FROM TAREFA WHERE lista_id={lista_id}"        
+            cur.execute(select)
             tarefas = cur.fetchall()
             con.commit()
             cur.close()

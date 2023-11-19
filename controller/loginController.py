@@ -6,8 +6,10 @@ from model.loginModel import loginModel
 
 class loginController:
     
-    def verificar_usuario_correto(email,senha) -> bool:        
-        return type(loginModel.login(email, senha)) == tuple
+    def verificar_usuario_correto(email,senha) -> bool:  
+        usuario = loginModel.login(email, senha)
+        if type(usuario) == tuple:
+            return usuario
     
     def verificar_usuario_existe(email) -> bool:
         for usuario in loginModel.listar_usuario():

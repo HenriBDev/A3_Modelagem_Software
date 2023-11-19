@@ -25,12 +25,12 @@ class ListaModel():
         except Exception as e:
             print(f"Erro ao editar lista: {str(e)}")
 
-    def excluir_lista(lista):
+    def excluir_lista(lista_id):
         try:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
             cur = con.cursor()
-            insert= "DELETE FROM LISTA WHERE id=?;"        
-            cur.execute(insert,(lista.id)) 
+            insert= f"DELETE FROM LISTA WHERE id={lista_id};"        
+            cur.execute(insert) 
             con.commit()
             cur.close()
             con.close()
@@ -41,8 +41,9 @@ class ListaModel():
         try:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
             cur = con.cursor()
-            insert= f"SELECT * FROM LISTA WHERE usuario id = {listar_user_id}"
-            result = cur.execute(insert)
+            select= f"SELECT * FROM LISTA WHERE usuario_id = {listar_user_id}"
+            cur.execute(select)
+            result = cur.fetchall()
             cur.close()
             con.close()
             return result
