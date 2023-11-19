@@ -9,6 +9,7 @@ class TarefaModel:
             cur.execute(insert,(tarefa.id,tarefa.descricao,tarefa.status,tarefa.tempo,tarefa.lista_id))
             con.commit()
             cur.close()
+            con.close()
         except Exception as e:
             print(f"Erro ao cadastrar tarefa: {str(e)}")
 
@@ -20,28 +21,45 @@ class TarefaModel:
             cur.execute(update,(tarefa.descricao,tarefa.status,tarefa.tempo, tarefa.id)) 
             con.commit()
             cur.close()
+            con.close()
         except Exception as e:
             print(f"Erro ao editar tarefa: {str(e)}")
 
-    def concluir_tarefa(tarefa):
+    def concluir_tarefa(tarefa_id):
         try:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
             cur = con.cursor()
-            update= "UPDATE * TAREFA set concluida=? WHERE id=?;"        
-            cur.execute(update,(tarefa.status, tarefa.id)) 
+            update= "UPDATE TAREFA set concluida=1 WHERE id=?;"        
+            cur.execute(update,(tarefa_id)) 
             con.commit()
             cur.close()
+            con.close()
         except Exception as e:
             print(f"Erro ao concluir tarefa: {str(e)}")
     
-    def excluir_tarefa(tarefa):
+    def excluir_tarefa(tarefa_id):
         try:
             con = sqlite3.connect("BD-ListaDeTarefa.db")
             cur = con.cursor()
             delete= "DELETE FROM TAREFA WHERE id=?;"        
-            cur.execute(delete,(tarefa.id)) 
+            cur.execute(delete,(tarefa_id)) 
             con.commit()
             cur.close()
+            con.close()
+        except Exception as e:
+            print(f"Erro ao excluir tarefa: {str(e)}")
+
+    def exibir_tarefas(lista_id):
+        try:
+            con = sqlite3.connect("BD-ListaDeTarefa.db")
+            cur = con.cursor()
+            select= f"SELECT * FROM TAREFA WHERE lista_id={lista_id};"        
+            cur.execute(select)
+            result = cur.fetchall() 
+            con.commit()
+            cur.close()
+            con.close()
+            return  result
         except Exception as e:
             print(f"Erro ao excluir tarefa: {str(e)}")    
     
