@@ -1,8 +1,8 @@
 from Controllers.ListaController import ListaController
 
 class ListaView:
-        def exibir_listas(self, usuario):
-                listas = ListaController().buscar_listas(usuario)
+        def exibir_listas(self, usuario_id):
+                listas = ListaController().buscar_listas(usuario_id)
                 print("Lista de tarefas:")
                 for lista in listas:
                         print(f"{lista[0]} - {lista[1]}")
@@ -21,3 +21,12 @@ class ListaView:
                         print('Lista deletada com sucesso')
                 else:
                         print("Não há nenhuma lista com esse ID")
+                        
+        def selecionar_lista(self, usuario_id):
+                while True:
+                        listas = self.exibir_listas(usuario_id)               
+                        lista_id = int(input("Qual lista deseja manipular?\n"))
+                        if lista_id in listas:
+                                return lista_id
+                        else:
+                                print("Não há nenhuma lista com esse ID")

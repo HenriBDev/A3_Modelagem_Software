@@ -9,6 +9,7 @@ def main():
     
     usuario_view = UsuarioView()
     lista_view = ListaView()
+    tarefa_view = TarefaView()
     
     while True:
         
@@ -26,16 +27,26 @@ def main():
                 print('Valor digitado errado') 
     
         while True:
-            valorDigitado = input(f"------------ORGANIZADOR DE TAREFAS------------\nO que deseja fazer {usuario_logado.nome}?\n1 - Criar uma lista de tarefas nova?\n2 - Excluir alguma lista já existente?\n3 - Remover tarefas de alguma lista?\n4 - Checar as listas?\n5 - Trocar de usuário?\n")
-            if(valorDigitado == '1'):
+            valor_digitado = input(f"------------ORGANIZADOR DE TAREFAS------------\nO que deseja fazer {usuario_logado.nome}?\n1 - Criar lista?\n2 - Excluir lista?\n3 - Criar tarefa?\n4 - Editar tarefa?\n5 - Concluir tarefa?\n6 - Excluir tarefa\n7 - Checar as listas?\n8 - Trocar de usuário?\n")
+            if valor_digitado == '1':
                 lista_view.cadastrar_lista(usuario_logado.id)
-            elif(valorDigitado == '2'):
+            elif valor_digitado == '2':
                 lista_view.excluir_lista(usuario_logado.id)
-            elif(valorDigitado == '3'):
-                TarefaView().excluir_tarefa()
-            elif(valorDigitado == '4'):
+            elif valor_digitado == '3':
+                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
+                tarefa_view.cadastrar_tarefa(id_lista_selecionada)
+            elif valor_digitado == '4':
+                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
+                tarefa_view.editar_tarefa(id_lista_selecionada)
+            elif valor_digitado == '5':
+                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
+                tarefa_view.concluir_tarefa(id_lista_selecionada)
+            elif valor_digitado == '6':
+                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
+                tarefa_view.excluir_tarefa(id_lista_selecionada)
+            elif valor_digitado == '7':
                 lista_view.exibir_listas(usuario_logado.id)
-            elif(valorDigitado == '5'): break
+            elif valor_digitado == '8': break
             else: print("Valor digitado inválido!")
 
 if __name__ == '__main__':
