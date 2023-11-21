@@ -1,4 +1,5 @@
 from Models.TarefaModel import TarefaModel
+import time
 
 class TarefaController:
     
@@ -34,3 +35,17 @@ class TarefaController:
         
     def exibir_tarefas(self,lista_id):
         return TarefaModel().buscar_tarefas_por_lista(lista_id)
+    
+    
+    def timer(self, tempo):
+        
+        timer = tempo
+        
+        for x in range(timer, 0, -1):
+            segundos = x % 60
+            minutos = int(x / 60) % 60 
+            horas = int(x / 3600)
+            print(f'{horas:02}:{minutos:02}:{segundos:02}')
+            time.sleep(1)
+            
+        print('acabou o tempo')
