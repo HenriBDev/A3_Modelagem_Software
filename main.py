@@ -40,7 +40,7 @@ def main():
                 tarefa_view.editar_tarefa(id_lista_selecionada)
             elif valor_digitado == '5':
                 id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
-                tarefa_view.concluir_tarefa(id_lista_selecionada)
+                tarefa_view.timer(id_lista_selecionada)
             elif valor_digitado == '6':
                 id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
                 tarefa_view.excluir_tarefa(id_lista_selecionada)
