@@ -37,9 +37,10 @@ class TarefaController:
         return TarefaModel().buscar_tarefas_por_lista(lista_id)
     
     
-    def timer(self, tempo):
-        
-        timer = tempo
+    def timer(self,tarefa_id):
+        tarefa_model = TarefaModel()
+        tarefa=tarefa_model.buscar_tarefa_por_id(tarefa_id)
+        timer = tarefa[0][3]
         
         for x in range(timer, 0, -1):
             segundos = x % 60

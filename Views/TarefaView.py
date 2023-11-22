@@ -39,13 +39,19 @@ class TarefaView:
                       
         def cadastrar_tarefa(self, lista_id):
                 descricao = input("Digite o nome da tarefa\n")
-                duracao = input("Digite a duração da tarefa\n")
+                duracao = int(input("Digite a duração da tarefa\n"))
                 TarefaController().cadastrar_tarefa(descricao, duracao, lista_id)
                 print("Tarefa cadastrada com sucesso")
 
-        def concluir_tarefa(self, lista_id):
-                self.exibir_tarefas_da_lista(lista_id) 
-                tarefa_id = input("Qual tarefa deseja concluir ? (Digite o id dela)\n")  
+        def concluir_tarefa(self, tarefa_id):
+                # self.exibir_tarefas_da_lista(lista_id) 
+                # tarefa_id = int(input("Qual tarefa deseja concluir ? (Digite o id dela)\n"))  
                 TarefaController().concluir_tarefa(tarefa_id)                   
                 print("Tarefa concluida com sucesso")
+
+        def timer(self,lista_id):
+                self.exibir_tarefas_da_lista(lista_id)
+                tarefa_id = int(input("Qual tarefa deseja concluir ? (Digite o id dela)\n"))
+                TarefaController().timer(tarefa_id)
+                self.concluir_tarefa(tarefa_id)
                
