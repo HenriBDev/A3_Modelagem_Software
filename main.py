@@ -1,15 +1,14 @@
 # Python libs
 import sys
 
-from Views.TarefaView import TarefaView
-from Views.UsuarioView import UsuarioView
-from Views.ListaView import ListaView
+from Views.ViewFactory import ViewFactory
 
 def main():
     
-    usuario_view = UsuarioView()
-    lista_view = ListaView()
-    tarefa_view = TarefaView()
+    view_factory = ViewFactory()
+    usuario_view = view_factory.create_view('usuario')
+    lista_view = view_factory.create_view('lista')
+    tarefa_view = view_factory.create_view('tarefa')
     
     while True:
         
@@ -27,7 +26,7 @@ def main():
                 print('Valor digitado errado') 
     
         while True:
-            valor_digitado = input(f"------------ORGANIZADOR DE TAREFAS------------\nO que deseja fazer {usuario_logado.nome}?\n1 - Criar lista?\n2 - Excluir lista?\n3 - Criar tarefa?\n4 - Editar tarefa?\n5 - Concluir tarefa?\n6 - Excluir tarefa\n7 - Checar as listas?\n8 - Trocar de usuário?\n")
+            valor_digitado = input(f"------------ORGANIZADOR DE TAREFAS------------\nO que deseja fazer {usuario_logado.nome}?\n1 - Criar lista\n2 - Excluir lista\n3 - Criar tarefa\n4 - Editar tarefa\n5 - Executar lista de tarefas\n6 - Excluir tarefa\n7 - Checar as listas\n8 - Trocar de usuário\n")
             if valor_digitado == '1':
                 lista_view.cadastrar_lista(usuario_logado.id)
             elif valor_digitado == '2':
@@ -38,9 +37,10 @@ def main():
             elif valor_digitado == '4':
                 id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
                 tarefa_view.editar_tarefa(id_lista_selecionada)
+                
             elif valor_digitado == '5':
-                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
-                tarefa_view.timer(id_lista_selecionada)
+                id_lista_selecionada = lista_view.iniciar_execucao_lista(usuario_logado.id)
+                
             elif valor_digitado == '6':
                 id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
                 tarefa_view.excluir_tarefa(id_lista_selecionada)
