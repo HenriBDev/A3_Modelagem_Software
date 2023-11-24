@@ -1,5 +1,5 @@
 class Tarefa():
-    def __init__(self, id, status, tempo, descricao, lista_id):
+    def __init__(self, id, descricao, status, tempo, lista_id):
         self.id = id
         self.tempo = tempo
         self.status = status

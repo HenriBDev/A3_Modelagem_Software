@@ -1,14 +1,14 @@
 # Python libs
 import sys
 
-from Controllers.UsuarioController import UsuarioController
+from Controllers.ControllerFactory import ControllerFactory
 from Domains.Usuario import Usuario
 
 class UsuarioView: 
     
     def logar_usuario(self):
         
-        usuario_controller = UsuarioController()
+        usuario_controller = ControllerFactory().create_controller('usuario')
         
         while True:
             email = input("Digite seu e-mail: ")
@@ -22,7 +22,7 @@ class UsuarioView:
     
     def cadastrar_usuario(self):
         
-        usuario_controller = UsuarioController()
+        usuario_controller = ControllerFactory().create_controller('usuario')
         
         while True:
 

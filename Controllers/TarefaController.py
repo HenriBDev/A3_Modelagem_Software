@@ -1,20 +1,20 @@
-from Models.TarefaModel import TarefaModel
+from Models.ModelFactory import ModelFactory
 import time
 
 class TarefaController:
     
     def verificar_tarefa_existe(self, descricao, lista_id) -> bool:
-        return bool(TarefaModel().buscar_tarefas_por_descricao(descricao, lista_id))
+        return bool(ModelFactory().create_model('tarefa').buscar_tarefas_por_descricao(descricao, lista_id))
     
     def cadastrar_tarefa(self, descricao, duracao, lista_id):
         if not self.verificar_tarefa_existe(descricao, lista_id):
-            TarefaModel().cadastrar_tarefa(descricao, duracao, lista_id)
+            ModelFactory().create_model('tarefa').cadastrar_tarefa(descricao, duracao, lista_id)
         else:
             print("A tarefa não pôde ser cadastrada.")
             
     def deletar_tarefa(self, tarefa_id):
         
-        tarefa_model = TarefaModel()
+        tarefa_model = ModelFactory().create_model('tarefa')
         
         if bool(tarefa_model.buscar_tarefa_por_id(tarefa_id)):
             tarefa_model.excluir_tarefa_por_id(tarefa_id)
@@ -23,7 +23,7 @@ class TarefaController:
             
     def editar_tarefa(self, tarefa_id, descricao, duracao):
         
-        tarefa_model = TarefaModel()
+        tarefa_model = ModelFactory().create_model('tarefa')
         
         if bool(tarefa_model.buscar_tarefa_por_id(tarefa_id)):
             tarefa_model.editar_tarefa_por_id(tarefa_id, descricao, duracao)
@@ -31,14 +31,14 @@ class TarefaController:
             print("Não há tarefas com esse ID.")
 
     def concluir_tarefa(self, tarefa_id):
-        TarefaModel().concluir_tarefa_por_id(tarefa_id)
+        ModelFactory().create_model('tarefa').concluir_tarefa_por_id(tarefa_id)
         
     def exibir_tarefas(self,lista_id):
-        return TarefaModel().buscar_tarefas_por_lista(lista_id)
+        return ModelFactory().create_model('tarefa').buscar_tarefas_por_lista(lista_id)
     
     
     def timer(self,tarefa_id):
-        tarefa_model = TarefaModel()
+        tarefa_model = ModelFactory().create_model('tarefa')
         tarefa=tarefa_model.buscar_tarefa_por_id(tarefa_id)
         timer = tarefa[0][3]
         

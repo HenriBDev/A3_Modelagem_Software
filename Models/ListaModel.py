@@ -26,4 +26,5 @@ class ListaModel(ModelBase):
         
         # Busca lista
         return super().executar_query("SELECT rowid, * FROM LISTA WHERE descricao=? AND usuario_id=?;", (descricao, usuario_id))
+        
     

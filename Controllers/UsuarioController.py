@@ -1,4 +1,4 @@
-from Models.UsuarioModel import UsuarioModel
+from Models.ModelFactory import ModelFactory
 
 class UsuarioController:
     
@@ -6,10 +6,10 @@ class UsuarioController:
         return bool(self.buscar_usuario(email, senha))
     
     def verificar_usuario_existe(self, email) -> bool:
-        return bool(UsuarioModel().buscar_usuario_por_email(email))
+        return bool(ModelFactory().create_model('usuario').buscar_usuario_por_email(email))
     
     def cadastrar_usuario(self, email: str, senha: str, nome: str):
-        UsuarioModel().cadastrar_usuario(nome, email, senha)
+        ModelFactory().create_model('usuario').cadastrar_usuario(nome, email, senha)
     
     def buscar_usuario(self, email, senha):
-        return UsuarioModel().buscar_usuario_por_credenciais(email, senha)
+        return ModelFactory().create_model('usuario').buscar_usuario_por_credenciais(email, senha)
