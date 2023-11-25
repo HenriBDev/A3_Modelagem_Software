@@ -1,6 +1,6 @@
-from Models.ModelBase import ModelBase
+from Models.Model import Model
 
-class UsuarioModel(ModelBase):
+class UsuarioModel(Model):
 
     def cadastrar_usuario(self, nome, email, senha):
         

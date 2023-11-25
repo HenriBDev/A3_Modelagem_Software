@@ -6,5 +6,5 @@ class ModelFactory(Factory):
     def __init__(self):
         super().__init__("model", os.path.dirname(os.path.abspath(__file__)))
         
-    def create_model(self, nome_model):
-        return super().create_instancia(nome_model)
+    def instanciar_model(self, nome_model):
+        return super().criar_instancia(nome_model)

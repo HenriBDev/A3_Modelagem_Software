@@ -9,13 +9,11 @@ class Factory:
         
         self.tipo_factory = tipo_factory.capitalize()
         
-        nomes_ignorados = ['__pycache__', '__init__.py', f"{self.tipo_factory}Factory.py"]
-        
         self.tipo_instancias = {
-            nome_classe[:- (3 + len(tipo_factory))]: getattr(importlib.import_module(f"{self.tipo_factory}s.{nome_classe[:-3]}"), nome_classe[:-3]) 
-        for nome_classe in os.listdir(diretorio_factory) if nome_classe not in nomes_ignorados}
+            nome_arquivo[:- (3 + len(tipo_factory))]: getattr(importlib.import_module(f"{self.tipo_factory}s.{nome_arquivo[:-3]}"), nome_arquivo[:-3]) 
+        for nome_arquivo in os.listdir(diretorio_factory) if nome_arquivo.endswith(f"{self.tipo_factory}.py")}
         
-    def create_instancia(self, nome_instancia):
+    def criar_instancia(self, nome_instancia):
         
         nome_instancia = nome_instancia.capitalize()
         
