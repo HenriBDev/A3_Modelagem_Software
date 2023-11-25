@@ -19,7 +19,7 @@ class MenuView(View):
             
         return input(
             "------------ORGANIZADOR DE TAREFAS------------\n"
-            f"O que deseja fazer {usuario_logado.nome.capitalize()}?\n"
+            f"Boas vindas {usuario_logado.nome.capitalize()}, o que deseja fazer?\n"
             "1 - Criar lista\n"
             "2 - Excluir lista\n"
             "3 - Criar tarefa\n"
@@ -32,6 +32,12 @@ class MenuView(View):
             "\n"
             "Selecione: "
         )
+        
+    def voltar_menu_inicial(self):
+        return input(
+            "Deseja voltar para o menu inicial? [S/N]\n"
+            "(N)"
+        ).strip().upper() == "S"
         
     def valor_digitado_invalido(self):
         

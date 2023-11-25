@@ -3,13 +3,14 @@ from Views.ViewFactory import ViewFactory
 
 class Main():
     
-    def __init__(self):
+    def __init__(self) -> None:
         
         self._view_factory = ViewFactory()
         self._menu_view = self._view_factory.instanciar_view('menu')
         self._usuario_view = self._view_factory.instanciar_view('usuario')
         self._lista_view = self._view_factory.instanciar_view('lista')
         self._tarefa_view = self._view_factory.instanciar_view('tarefa')
+        self.usuario_logado = None
         
         os.system('cls' if os.name=='nt' else 'clear')
         
@@ -20,10 +21,24 @@ class Main():
                 valor_digitado = self._menu_view.menu_inicial()
                 
                 if(valor_digitado == '1'):
-                    self.usuario_logado = self._usuario_view.logar_usuario()
+                    
+                    while True:
+                        
+                        self.usuario_logado = self._usuario_view.logar_usuario()
+                        if not self.usuario_logado: 
+                            if self._menu_view.voltar_menu_inicial() == True: break
+                        else: break
+                        
                     if bool(self.usuario_logado): break
                     
-                elif(valor_digitado == '2'): self._usuario_view.cadastrar_usuario()
+                elif(valor_digitado == '2'): 
+                    
+                    while True:
+                        
+                        usuario_foi_cadastrado = self._usuario_view.cadastrar_usuario()
+                        if not usuario_foi_cadastrado: 
+                            if self._menu_view.voltar_menu_inicial() == True: break
+                        else: break
                     
                 elif(valor_digitado == '3'): self._menu_view.encerrar_programa()
                     
