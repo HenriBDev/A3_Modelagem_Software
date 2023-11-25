@@ -4,14 +4,14 @@ from Views.ViewFactory import ViewFactory
 def main():
     
     view_factory = ViewFactory()
-    usuario_view = view_factory.create_view('usuario')
-    lista_view = view_factory.create_view('lista')
-    tarefa_view = view_factory.create_view('tarefa')
+    usuario_view = view_factory.instanciar_view('usuario')
+    lista_view = view_factory.instanciar_view('lista')
+    tarefa_view = view_factory.instanciar_view('tarefa')
     
     while True:
         
         while True:
-            print("------------Menu Inicial------------\n1 - Fazer Login\n2 - Cadastrar usuário\n3 - Sair")
+            print("------------Menu Inicial------------\n1 - Fazer Login\n2 - Cadastrar usuário\n3 - Encerrar programa")
             valor_digitado = input("O que deseja fazer ?\n")
             if(valor_digitado == '1'):
                 usuario_logado = usuario_view.logar_usuario()
@@ -24,7 +24,7 @@ def main():
                 print('Valor digitado errado') 
     
         while True:
-            valor_digitado = input(f"------------ORGANIZADOR DE TAREFAS------------\nO que deseja fazer {usuario_logado.nome}?\n1 - Criar lista\n2 - Excluir lista\n3 - Criar tarefa\n4 - Editar tarefa\n5 - Executar lista de tarefas\n6 - Excluir tarefa\n7 - Checar as listas\n8 - Trocar de usuário\n")
+            valor_digitado = input(f"------------ORGANIZADOR DE TAREFAS------------\nO que deseja fazer {usuario_logado.nome}?\n1 - Criar lista\n2 - Excluir lista\n3 - Criar tarefa\n4 - Editar tarefa\n5 - Executar lista de tarefas\n6 - Excluir tarefa\n7 - Checar as listas\n8 - Trocar de usuário\n9 - Encerrar programa")
             
             if valor_digitado == '1':
                 lista_view.cadastrar_lista(usuario_logado.id)
@@ -51,6 +51,8 @@ def main():
                 lista_view.exibir_listas(usuario_logado.id)
                 
             elif valor_digitado == '8': break
+            
+            elif valor_digitado == '9': sys.exit("Programa encerrando...")
             
             else: print("Valor digitado inválido!")
 

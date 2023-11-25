@@ -1,6 +1,6 @@
-from Models.ModelBase import ModelBase
+from Models.Model import Model
 
-class TarefaModel(ModelBase):
+class TarefaModel(Model):
 
     def cadastrar_tarefa(self, descricao, tempo, lista_id):
         

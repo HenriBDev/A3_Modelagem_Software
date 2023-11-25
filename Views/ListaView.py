@@ -1,12 +1,12 @@
 import time
 import os
 
-from Controllers.ControllerFactory import ControllerFactory
+from Views.View import View
 from Domains.Tarefa import Tarefa
 
-class ListaView:
+class ListaView(View):
         def exibir_listas(self, usuario_id):
-                listas = ControllerFactory().create_controller('lista').buscar_listas(usuario_id)
+                listas = self.controller.buscar_listas(usuario_id)
                 print("Lista de tarefas:")
                 for lista in listas:
                         print(f"{lista[0]} - {lista[1]}")
@@ -14,14 +14,14 @@ class ListaView:
 
         def cadastrar_lista(self, usuario_id):
                 descricao = input("Digite o nome da lista: ") 
-                lista_cadastrada = ControllerFactory().create_controller('lista').cadastrar_lista(descricao, usuario_id)
+                lista_cadastrada = self.controller.cadastrar_lista(descricao, usuario_id)
                 if lista_cadastrada: print("Lista cadastrada com sucesso")
 
         def excluir_lista(self, usuario_id):
                 id_listas = self.exibir_listas(usuario_id)
                 id_input = int(input("\nQual lista deseja excluir?\nDigite o número: "))                   
                 if(id_input in id_listas):
-                        ControllerFactory().create_controller('lista').excluir_lista(id_input)
+                        self.controller.excluir_lista(id_input)
                         print('Lista deletada com sucesso')
                 else:
                         print("Não há nenhuma lista com esse ID")
@@ -37,7 +37,7 @@ class ListaView:
                                 
         def iniciar_execucao_lista(self, usuario_id):
                 lista_selecionada_id = self.selecionar_lista(usuario_id)
-                tarefas_usuario = [Tarefa(*tarefa) for tarefa in ControllerFactory().create_controller('lista').buscar_tarefas_por_lista(lista_selecionada_id)]
+                tarefas_usuario = [Tarefa(*tarefa) for tarefa in self.controller.buscar_tarefas_por_lista(lista_selecionada_id)]
                 os.system('cls')
                 for tarefa in tarefas_usuario:
                         for x in range(tarefa.tempo, 0, -1):

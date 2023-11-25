@@ -1,13 +1,13 @@
 from Domains.Tarefa import Tarefa
-from Controllers.ControllerFactory import ControllerFactory
+from Views.View import View
 
-class TarefaView:
+class TarefaView(View):
         
         def excluir_tarefa(self, lista_id):                
                 id_tarefas = self.exibir_tarefas_da_lista(lista_id) 
                 id_input = int(input("Qual tarefa deseja excluir ? (Digite o id dela)\n"))
                 if id_input in id_tarefas:
-                        ControllerFactory().create_controller('tarefa').deletar_tarefa(id_input)
+                        self.controller.deletar_tarefa(id_input)
                         print("Tarefa excluida com sucesso")
                 else:
                         print("Não há nenhuma tarefa com esse ID")
@@ -24,14 +24,14 @@ class TarefaView:
                         if tarefa_id in tarefas:
                                 nova_descricao=input("Digite o descrição da tarefa:\n")
                                 novo_tempo=int(input("Digite a duração da tarefa em segundos:\n"))
-                                ControllerFactory().create_controller('tarefa').editar_tarefa(tarefa_id, nova_descricao, novo_tempo)
+                                self.controller.editar_tarefa(tarefa_id, nova_descricao, novo_tempo)
                                 print("Tarefa editada com sucesso")
                                 break
                         else:
                                 print("Não há nenhuma tarefa com esse ID")
 
         def exibir_tarefas_da_lista(self, lista_id):
-                tarefas = ControllerFactory().create_controller('tarefa').exibir_tarefas(lista_id)
+                tarefas = self.controller.exibir_tarefas(lista_id)
                 print("Tarefas:\n")
                 for tarefa in tarefas:
                         print(f"{tarefa[0]} - {tarefa[1]}")
@@ -39,19 +39,19 @@ class TarefaView:
                       
         def cadastrar_tarefa(self, lista_id):
                 descricao = input("Digite o nome da tarefa\n")
-                duracao = int(input("Digite a duração da tarefa\n"))
-                ControllerFactory().create_controller('tarefa').cadastrar_tarefa(descricao, duracao, lista_id)
+                duracao = int(input("Digite a duração da tarefa em segundos\n"))
+                self.controller.cadastrar_tarefa(descricao, duracao, lista_id)
                 print("Tarefa cadastrada com sucesso")
 
         def concluir_tarefa(self, tarefa_id):
                 # self.exibir_tarefas_da_lista(lista_id) 
                 # tarefa_id = int(input("Qual tarefa deseja concluir ? (Digite o id dela)\n"))  
-                ControllerFactory().create_controller('tarefa').concluir_tarefa(tarefa_id)                   
+                self.controller.concluir_tarefa(tarefa_id)                   
                 print("Tarefa concluida com sucesso")
 
         def timer(self,lista_id):
                 self.exibir_tarefas_da_lista(lista_id)
                 tarefa_id = int(input("Qual tarefa deseja concluir ? (Digite o id dela)\n"))
-                ControllerFactory().create_controller('tarefa').timer(tarefa_id)
+                self.controller.timer(tarefa_id)
                 self.concluir_tarefa(tarefa_id)
                

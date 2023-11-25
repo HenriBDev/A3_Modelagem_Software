@@ -1,7 +1,7 @@
 # Python libs
 import sqlite3
 
-class ModelBase:
+class Model:
     
     def conectar_banco(self):
         self.conn = sqlite3.connect("BD-ListaDeTarefa.db")

@@ -1,6 +1,6 @@
-from Models.ModelBase import ModelBase
+from Models.Model import Model
 
-class ListaModel(ModelBase):
+class ListaModel(Model):
             
     def cadastrar_lista(self, descricao, usuario_id):
         
