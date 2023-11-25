@@ -1,60 +1,63 @@
-import sys
+import os
 from Views.ViewFactory import ViewFactory
 
-def main():
+class Main():
     
-    view_factory = ViewFactory()
-    usuario_view = view_factory.instanciar_view('usuario')
-    lista_view = view_factory.instanciar_view('lista')
-    tarefa_view = view_factory.instanciar_view('tarefa')
-    
-    while True:
+    def __init__(self):
+        
+        self._view_factory = ViewFactory()
+        self._menu_view = self._view_factory.instanciar_view('menu')
+        self._usuario_view = self._view_factory.instanciar_view('usuario')
+        self._lista_view = self._view_factory.instanciar_view('lista')
+        self._tarefa_view = self._view_factory.instanciar_view('tarefa')
+        
+        os.system('cls' if os.name=='nt' else 'clear')
         
         while True:
-            print("------------Menu Inicial------------\n1 - Fazer Login\n2 - Cadastrar usuário\n3 - Encerrar programa")
-            valor_digitado = input("O que deseja fazer ?\n")
-            if(valor_digitado == '1'):
-                usuario_logado = usuario_view.logar_usuario()
-                if bool(usuario_logado): break
-            elif(valor_digitado == '2'):
-                usuario_view.cadastrar_usuario()
-            elif(valor_digitado == '3'):
-                sys.exit("Programa encerrando...")
-            else:
-                print('Valor digitado errado') 
-    
-        while True:
-            valor_digitado = input(f"------------ORGANIZADOR DE TAREFAS------------\nO que deseja fazer {usuario_logado.nome}?\n1 - Criar lista\n2 - Excluir lista\n3 - Criar tarefa\n4 - Editar tarefa\n5 - Executar lista de tarefas\n6 - Excluir tarefa\n7 - Checar as listas\n8 - Trocar de usuário\n9 - Encerrar programa")
             
-            if valor_digitado == '1':
-                lista_view.cadastrar_lista(usuario_logado.id)
+            while True:
                 
-            elif valor_digitado == '2':
-                lista_view.excluir_lista(usuario_logado.id)
+                valor_digitado = self._menu_view.menu_inicial()
                 
-            elif valor_digitado == '3':
-                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
-                tarefa_view.cadastrar_tarefa(id_lista_selecionada)
+                if(valor_digitado == '1'):
+                    self.usuario_logado = self._usuario_view.logar_usuario()
+                    if bool(self.usuario_logado): break
+                    
+                elif(valor_digitado == '2'): self._usuario_view.cadastrar_usuario()
+                    
+                elif(valor_digitado == '3'): self._menu_view.encerrar_programa()
+                    
+                else: self._menu_view.valor_digitado_invalido()
                 
-            elif valor_digitado == '4':
-                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
-                tarefa_view.editar_tarefa(id_lista_selecionada)
+            while True:
                 
-            elif valor_digitado == '5':
-                id_lista_selecionada = lista_view.iniciar_execucao_lista(usuario_logado.id)
+                valor_digitado = self._menu_view.menu_principal(self.usuario_logado)
+                    
+                if valor_digitado == '1': self._lista_view.cadastrar_lista(self.usuario_logado.id)
+                    
+                elif valor_digitado == '2': self._lista_view.excluir_lista(self.usuario_logado.id)
+                    
+                elif valor_digitado == '3':
+                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                    self._tarefa_view.cadastrar_tarefa(id_lista_selecionada)
+                    
+                elif valor_digitado == '4':
+                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                    self._tarefa_view.editar_tarefa(id_lista_selecionada)
+                    
+                elif valor_digitado == '5': self._lista_view.iniciar_execucao_lista(self.usuario_logado.id)
+                    
+                elif valor_digitado == '6':
+                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                    self._tarefa_view.excluir_tarefa(id_lista_selecionada)
+                    
+                elif valor_digitado == '7': self._lista_view.exibir_listas(self.usuario_logado.id)
+                    
+                elif valor_digitado == '8': break
                 
-            elif valor_digitado == '6':
-                id_lista_selecionada = lista_view.selecionar_lista(usuario_logado.id)
-                tarefa_view.excluir_tarefa(id_lista_selecionada)
+                elif valor_digitado == '9': self._menu_view.encerrar_programa()
                 
-            elif valor_digitado == '7':
-                lista_view.exibir_listas(usuario_logado.id)
-                
-            elif valor_digitado == '8': break
+                else: self._menu_view.valor_digitado_invalido()
             
-            elif valor_digitado == '9': sys.exit("Programa encerrando...")
-            
-            else: print("Valor digitado inválido!")
-
 if __name__ == '__main__':
-    main()
+    Main()

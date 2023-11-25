@@ -16,7 +16,7 @@ class UsuarioView(View):
                 print("Login bem-sucedido!")
                 return Usuario(*self.controller.buscar_usuario(email, senha)[0])
             else:
-                if input("E-mail ou senha incorretos. Deseja voltar para o menu inicial? [S/N]\n").strip().upper() == "S": return False
+                if input("E-mail ou senha incorretos. Deseja voltar para o menu inicial? [S/N]\n(N)").strip().upper() == "S": return False
     
     def cadastrar_usuario(self):
         
