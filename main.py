@@ -50,7 +50,7 @@ class Main():
                     
                 elif valor_digitado == '6':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    if(id_lista_selecionada): self._lista_view.iniciar_execucao_lista(self.usuario_logado.id)
+                    if(id_lista_selecionada): self._lista_view.iniciar_execucao_lista(id_lista_selecionada)
                     
                 elif valor_digitado == '7': self._lista_view.checar_listas(self.usuario_logado.id)
                     
