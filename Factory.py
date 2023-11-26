@@ -11,7 +11,7 @@ class Factory:
             nome_arquivo[:- (3 + len(tipo_factory))]: getattr(importlib.import_module(f"{self.tipo_factory}s.{nome_arquivo[:-3]}"), nome_arquivo[:-3]) 
         for nome_arquivo in os.listdir(diretorio_factory) if nome_arquivo.endswith(f"{self.tipo_factory}.py")}
         
-    def criar_instancia(self, nome_instancia: str) -> object:
+    def criar_instancia(self, nome_instancia: str, *args, **kwargs) -> object:
         
         nome_instancia = nome_instancia.capitalize()
         
@@ -19,4 +19,4 @@ class Factory:
             
             raise Exception(f"{self.tipo_factory} inexistente")
         
-        return self.tipo_instancias[nome_instancia.capitalize()]()
+        return self.tipo_instancias[nome_instancia.capitalize()](*args, **kwargs)

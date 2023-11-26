@@ -6,11 +6,11 @@ class TarefaView(View):
                 tarefas = self.controller.buscar_tarefas_por_lista(lista_id)
                 print("Tarefas:\n")
                 for tarefa in tarefas:
-                        duracao_tarefa = tarefa[3]
+                        duracao_tarefa = tarefa.tempo
                         horas, resto = divmod(duracao_tarefa, 3600)
                         minutos, segundos = divmod(resto, 60)
-                        print(f"{tarefa[0]} - {tarefa[1]} ({horas:02}:{minutos:02}:{segundos:02})")
-                return [tarefa[0] for tarefa in tarefas]
+                        print(f"{tarefa.id} - {tarefa.descricao} ({horas:02}:{minutos:02}:{segundos:02})")
+                return [tarefa.id for tarefa in tarefas]
         
         @View.view_action
         def excluir_tarefa(self, lista_id):
