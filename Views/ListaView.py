@@ -72,13 +72,28 @@ class ListaView(View):
                 id_input = int(input("\nQual lista deseja excluir?\nDigite o número: "))
                 msg_retorno = self.controller.excluir_lista_do_usuario(id_input, usuario_id)
                 print('Lista deletada com sucesso' if msg_retorno == "ok" else msg_retorno)
-                       
                          
         @View.view_action
-        def iniciar_execucao_lista(self, lista_id):
-                tarefa_controller = ControllerFactory().criar_instancia('tarefa')
+        def iniciar_execucao_lista(self, usuario_id):
                 
-                msg_retorno, tarefas = tarefa_controller.buscar_tarefas_por_lista(lista_id)
+                print('Suas listas:')
+                msg_retorno, retorno = self.controller.buscar_listas_do_usuario(usuario_id)
+                
+                if msg_retorno != "ok":
+                        print(msg_retorno)
+                        return False
+                
+                for lista in retorno:
+                        print(f"Lista {lista.id} - {lista.descricao}\n")
+                        
+                lista_id = int(input("Qual lista deseja executar?\n"))
+                msg_retorno, retorno = self.controller.buscar_lista_do_usuario_por_id(lista_id, usuario_id)
+                
+                if msg_retorno != "ok":
+                        print(msg_retorno)
+                        return False
+                
+                msg_retorno, tarefas = ControllerFactory().criar_instancia('tarefa').buscar_tarefas_por_lista(lista_id)
                 if msg_retorno != "ok":
                         print(msg_retorno)
                         return
