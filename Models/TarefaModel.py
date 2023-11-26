@@ -22,7 +22,7 @@ class TarefaModel(Model):
         if filtros != None:
             query += " WHERE"
             for nome_filtro in filtros.keys():
-                if nome_coluna != 'id':
+                if nome_filtro != 'id':
                     query += f" {nome_filtro}=(?) AND"
                 else:
                     query += " rowid=(?) AND"
