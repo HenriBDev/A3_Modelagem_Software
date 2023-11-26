@@ -1,7 +1,7 @@
 import importlib
 import os
 
-class Factory:
+class MVCFactory:
     
     def __init__(self, tipo_factory: str, diretorio_factory: str) -> None:
         

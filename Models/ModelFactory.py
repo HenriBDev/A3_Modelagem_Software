@@ -1,10 +1,7 @@
 import os
-from Factory import Factory
+from MVCFactory import MVCFactory
 
-class ModelFactory(Factory):
+class ModelFactory(MVCFactory):
     
     def __init__(self):
         super().__init__("model", os.path.dirname(os.path.abspath(__file__)))
-        
-    def instanciar_model(self, nome_model):
-        return super().criar_instancia(nome_model)

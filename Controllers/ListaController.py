@@ -19,7 +19,7 @@ class ListaController(Controller):
         if len(busca_lista) == 0:
             return "Você não possui nenhuma lista com esse ID"
         
-        busca_tarefas = ModelFactory().instanciar_model('tarefa').buscar_tarefas(filtros={"lista_id": lista_id})
+        busca_tarefas = ModelFactory().criar_instancia('tarefa').buscar_tarefas(filtros={"lista_id": lista_id})
         
         if len(busca_tarefas) > 0:
             return "Não é possível deletar uma lista com tarefas dentro"
@@ -44,7 +44,7 @@ class ListaController(Controller):
         if incluir_tarefas == False:
             return ("ok", listas)
         else:
-            tarefa_controller = ControllerFactory().instanciar_controller('tarefa')
+            tarefa_controller = ControllerFactory().criar_instancia('tarefa')
             listas_com_tarefas = []
             for lista in listas:
                 msg_retorno, tarefas = tarefa_controller.buscar_tarefas_por_lista(lista.id)
