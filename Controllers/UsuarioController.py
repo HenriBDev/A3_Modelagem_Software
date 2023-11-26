@@ -2,20 +2,23 @@ from Controllers.Controller import Controller
 
 class UsuarioController(Controller):
     
-    def usuario_existe(self, email, senha) -> bool:
-        return bool(self.model.buscar_usuarios(filtros={
-            "email": email, 
-            "senha": senha
-        }))
-    
-    def email_ja_cadastrado(self, email) -> bool:
-        return bool(self.model.buscar_usuarios(filtros={"email": email}))
-    
-    def cadastrar_usuario(self, email: str, senha: str, nome: str):
+    def cadastrar_usuario(self, email: str, senha: str, nome: str) -> None:
+        busca_usuario = self.model.buscar_usuarios(filtros={
+            "email": email
+        })
+        
+        if len(busca_usuario) > 0:
+            return "\nEmail já cadastrado. Digite um email diferente."
+        
         self.model.cadastrar_usuario(nome, email, senha)
+        return "ok"
     
-    def buscar_usuario(self, email, senha):
-        return self.model.buscar_usuarios(filtros={
+    def logar_usuario(self, email: str, senha: str) -> tuple:
+        busca_usuario = self.model.buscar_usuarios(filtros={
             "email": email, 
             "senha": senha
-        })[0]
+        })
+        if len(busca_usuario) == 0:
+            return ("\nEmail e/ou senha incorretos", False)
+        
+        return ("ok", busca_usuario[0])
