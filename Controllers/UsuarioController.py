@@ -21,4 +21,4 @@ class UsuarioController(Controller):
         if len(busca_usuario) == 0:
             return ("\nEmail e/ou senha incorretos", False)
         
-        return ("ok", busca_usuario[0])
+        return ("ok", busca_usuario[0].id)
