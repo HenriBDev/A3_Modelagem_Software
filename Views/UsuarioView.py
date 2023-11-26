@@ -1,5 +1,4 @@
 from Views.View import View
-from Domains.Usuario import Usuario
 
 class UsuarioView(View): 
     
@@ -10,7 +9,7 @@ class UsuarioView(View):
         email = input("Digite seu e-mail: ")
         senha = input("Digite sua senha: ")
         if (self.controller.usuario_existe(email, senha)):
-            usuario = Usuario(*self.controller.buscar_usuario(email, senha)[0])
+            usuario = self.controller.buscar_usuario(email, senha)
             print("\nUsuário logado com sucesso!")
             return usuario
         else:

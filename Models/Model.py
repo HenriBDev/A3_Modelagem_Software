@@ -1,7 +1,10 @@
-# Python libs
 import sqlite3
+from Models.DomainFactory import DomainFactory
 
 class Model:
+    
+    def __init__(self):
+        self.Domain = DomainFactory
     
     def conectar_banco(self):
         self.conn = sqlite3.connect("BD-ListaDeTarefa.db")

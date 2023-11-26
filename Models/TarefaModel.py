@@ -5,35 +5,63 @@ class TarefaModel(Model):
     def cadastrar_tarefa(self, descricao, tempo, lista_id):
         
         # Insere tarefa
-        super().executar_query("INSERT INTO TAREFA VALUES(?,0,?,?);", (descricao, tempo, lista_id))
+        super().executar_query("INSERT INTO TAREFA VALUES(?,?,?);", (descricao, tempo, lista_id))
 
-    def buscar_tarefa_por_id(self, tarefa_id):
+    def buscar_tarefas(self, colunas: list|tuple = ("id", "descricao", "tempo", "lista_id"), filtros: dict|None = None):
         
-        # Busca a tarefa
-        return super().executar_query("SELECT rowid, * FROM TAREFA WHERE rowid=?", (tarefa_id,))
+        query = "SELECT "
+        for nome_coluna in colunas:
+            if nome_coluna != 'id':
+                query += f"{nome_coluna}, "
+            else:
+                query += "rowid, "
+        query = query[:-2]
+        query += " FROM Tarefa"
+        
+        filtro_args = []
+        if filtros != None:
+            query += " WHERE"
+            for nome_filtro in filtros.keys():
+                if nome_coluna != 'id':
+                    query += f" {nome_filtro}=(?) AND"
+                else:
+                    query += " rowid=(?) AND"
+                filtro_args.append(filtros[nome_filtro])
+            query = query[:-4]
+            
+        result_query = super().executar_query(query, tuple(filtro_args))
+        
+        result_domains = []
+        for linha in result_query:
+            result_domains.append(self.Domain({
+                nome_coluna: linha[index_coluna]
+            for index_coluna, nome_coluna in enumerate(colunas)}))
+        return tuple(result_domains)
     
-    def editar_tarefa_por_id(self, tarefa_id, descricao, duracao):
+    def editar_tarefa(self, colunas: dict, filtros: dict|None):
         
-        # Atualiza tarefa
-        super().executar_query("UPDATE TAREFA set descricao=?, tempo=? WHERE rowid=?;", (descricao, duracao, tarefa_id))
+        query = "UPDATE Tarefa SET "
+        
+        query_args = []
+        for nome_coluna in colunas.keys():
+            query += f"{nome_coluna}=(?), "
+            query_args.append(colunas[nome_coluna])
+        query = query[:-2]
+        
+        query += " WHERE"
+        for nome_filtro in filtros.keys():
+            if nome_filtro != 'id':
+                query += f" {nome_filtro}=(?) AND"
+            else:
+                query += " rowid=(?) AND"
+            query_args.append(filtros[nome_filtro])
+        query = query[:-4]
 
-    def concluir_tarefa_por_id(self, tarefa_id):
-        
         # Atualiza tarefa
-        super().executar_query("UPDATE TAREFA set concluida=1 WHERE rowid=?;", (tarefa_id,))
+        super().executar_query(query, tuple(query_args))
 
     def excluir_tarefa_por_id(self, tarefa_id):
         
         # Deleta tarefa
-        super().executar_query("DELETE FROM TAREFA WHERE rowid=?;", (tarefa_id,))  
-    
-    def buscar_tarefas_por_lista(self, lista_id):
-        
-        # Busca as tarefas
-        return super().executar_query("SELECT rowid, * FROM TAREFA WHERE lista_id=?", (lista_id,))
-    
-    def buscar_tarefas_por_descricao(self, descricao, lista_id):
-        
-        # Busca as tarefas
-        return super().executar_query("SELECT rowid, * FROM TAREFA WHERE descricao=? AND lista_id=?", (descricao, lista_id))
+        super().executar_query("DELETE FROM TAREFA WHERE rowid=?;", (tarefa_id,))
 
