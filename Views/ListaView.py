@@ -74,9 +74,9 @@ class ListaView(View):
                 print('Lista deletada com sucesso' if msg_retorno == "ok" else msg_retorno)
                        
                          
-        @View.view_action       
+        @View.view_action
         def iniciar_execucao_lista(self, lista_id):
-                tarefa_controller = ControllerFactory().instanciar_controller('tarefa')
+                tarefa_controller = ControllerFactory().criar_instancia('tarefa')
                 
                 msg_retorno, tarefas = tarefa_controller.buscar_tarefas_por_lista(lista_id)
                 if msg_retorno != "ok":

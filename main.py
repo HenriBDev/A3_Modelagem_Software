@@ -1,4 +1,3 @@
-import os
 from Views.ViewFactory import ViewFactory
 
 class Main():
@@ -6,10 +5,10 @@ class Main():
     def __init__(self) -> None:
         
         self._view_factory = ViewFactory()
-        self._menu_view = self._view_factory.instanciar_view('menu')
-        self._usuario_view = self._view_factory.instanciar_view('usuario')
-        self._lista_view = self._view_factory.instanciar_view('lista')
-        self._tarefa_view = self._view_factory.instanciar_view('tarefa')
+        self._menu_view = self._view_factory.criar_instancia('menu')
+        self._usuario_view = self._view_factory.criar_instancia('usuario')
+        self._lista_view = self._view_factory.criar_instancia('lista')
+        self._tarefa_view = self._view_factory.criar_instancia('tarefa')
         self.usuario_logado = None
         
         while True:
@@ -18,47 +17,51 @@ class Main():
                 
                 valor_digitado = self._menu_view.menu_inicial()
                 
-                if(valor_digitado == '1'):
-                    self.usuario_logado = self._usuario_view.logar_usuario()
-                    if bool(self.usuario_logado): break
+                match valor_digitado:
                     
-                elif(valor_digitado == '2'): self._usuario_view.cadastrar_usuario()
+                    case '1':
+                        self.usuario_logado = self._usuario_view.logar_usuario()
+                        if bool(self.usuario_logado): break
                     
-                elif(valor_digitado == '3'): self._menu_view.encerrar_programa()
+                    case '2': self._usuario_view.cadastrar_usuario()
                     
-                else: self._menu_view.valor_digitado_invalido()
+                    case '3': self._menu_view.encerrar_programa()
+                    
+                    case _: self._menu_view.valor_digitado_invalido()
                 
             while True:
                 
                 valor_digitado = self._menu_view.menu_principal(self.usuario_logado)
                     
-                if valor_digitado == '1': self._lista_view.cadastrar_lista(self.usuario_logado.id)
+                match valor_digitado:
                     
-                elif valor_digitado == '2': self._lista_view.excluir_lista(self.usuario_logado.id)
+                    case '1': self._lista_view.cadastrar_lista(self.usuario_logado.id)
                     
-                elif valor_digitado == '3':
-                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    if(id_lista_selecionada): self._tarefa_view.cadastrar_tarefa(id_lista_selecionada)
+                    case '2': self._lista_view.excluir_lista(self.usuario_logado.id)
                     
-                elif valor_digitado == '4':
-                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    if(id_lista_selecionada): self._tarefa_view.editar_tarefa(id_lista_selecionada)
+                    case '3':
+                        id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                        if(id_lista_selecionada): self._tarefa_view.cadastrar_tarefa(id_lista_selecionada)
                     
-                elif valor_digitado == '5': 
-                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    if(id_lista_selecionada): self._tarefa_view.excluir_tarefa(id_lista_selecionada)
+                    case '4':
+                        id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                        if(id_lista_selecionada): self._tarefa_view.editar_tarefa(id_lista_selecionada)
                     
-                elif valor_digitado == '6':
-                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    if(id_lista_selecionada): self._lista_view.iniciar_execucao_lista(id_lista_selecionada)
+                    case '5': 
+                        id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                        if(id_lista_selecionada): self._tarefa_view.excluir_tarefa(id_lista_selecionada)
                     
-                elif valor_digitado == '7': self._lista_view.exibir_listas(self.usuario_logado.id)
+                    case '6':
+                        id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                        if(id_lista_selecionada): self._lista_view.iniciar_execucao_lista(id_lista_selecionada)
                     
-                elif valor_digitado == '8': break
+                    case '7': self._lista_view.exibir_listas(self.usuario_logado.id)
+                    
+                    case '8': break
                 
-                elif valor_digitado == '9': self._menu_view.encerrar_programa()
+                    case '9': self._menu_view.encerrar_programa()
                 
-                else: self._menu_view.valor_digitado_invalido()
+                    case _: self._menu_view.valor_digitado_invalido()
             
 if __name__ == '__main__':
     Main()
