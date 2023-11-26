@@ -1,7 +1,7 @@
 import os
-from Factory import Factory
+from MVCFactory import MVCFactory
 
-class ViewFactory(Factory):
+class ViewFactory(MVCFactory):
     
     def __init__(self):
         super().__init__("view", os.path.dirname(os.path.abspath(__file__)))

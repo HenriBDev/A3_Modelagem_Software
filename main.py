@@ -5,10 +5,10 @@ class Main():
     def __init__(self) -> None:
         
         self._view_factory = ViewFactory()
-        self._menu_view = self._view_factory.instanciar_view('menu')
-        self._usuario_view = self._view_factory.instanciar_view('usuario')
-        self._lista_view = self._view_factory.instanciar_view('lista')
-        self._tarefa_view = self._view_factory.instanciar_view('tarefa')
+        self._menu_view = self._view_factory.criar_instancia('menu')
+        self._usuario_view = self._view_factory.criar_instancia('usuario')
+        self._lista_view = self._view_factory.criar_instancia('lista')
+        self._tarefa_view = self._view_factory.criar_instancia('tarefa')
         self.usuario_logado = None
         
         while True:
