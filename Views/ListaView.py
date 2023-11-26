@@ -29,28 +29,21 @@ class ListaView(View):
                                         else:
                                                 print("  └Sem tarefas")
                                 print()
-                        return listas
                 else:
                         print("Você não possui nenhuma lista")
+                return listas
                         
         @View.view_action
         def checar_listas(self, usuario_id):
                 self._exibir_listas(usuario_id, incluir_tarefas=True)
-                input("Pressione enter para continuar.")
 
         @View.view_action
         def cadastrar_lista(self, usuario_id):
                 descricao = input("Digite o nome da lista: ")
                 if not self.controller.verificar_lista_existente(descricao, usuario_id):
                         self.controller.cadastrar_lista(descricao, usuario_id)
-                        input(
-                                "Lista cadastrada com sucesso\n"
-                                "Pressione enter para continuar."
-                        )
-                else: input(
-                        "A lista não pôde ser cadastrada, pois já existe uma lista com o mesmo nome.\n"
-                        "Pressione enter para continuar."
-                )
+                        print("Lista cadastrada com sucesso\n")
+                else: print("A lista não pôde ser cadastrada, pois já existe uma lista com o mesmo nome.\n")
 
         @View.view_action
         def excluir_lista(self, usuario_id):
@@ -66,7 +59,6 @@ class ListaView(View):
                                         print("Não é possível deletar uma lista com tarefas dentro")
                         else:
                                 print("Não há nenhuma lista com esse ID")
-                input("Pressione enter para continuar.")
                        
         @View.view_action 
         def selecionar_lista(self, usuario_id):
@@ -74,33 +66,26 @@ class ListaView(View):
                 if len(listas) > 0:
                         ids_listas = [lista[0] for lista in listas]
                         lista_id = int(input("Qual lista deseja selecionar?\n"))
-                        if lista_id in ids_listas:
-                                return lista_id
-                        else:
-                                input(
-                                        "Não há nenhuma lista com esse ID\n"
-                                        "Pressione enter para continuar."
-                                )
+                        
+                        if lista_id in ids_listas: return lista_id
+                        else: print("Não há nenhuma lista com esse ID\n")
                 return False
                          
         @View.view_action       
-        def iniciar_execucao_lista(self, usuario_id):
-                lista_selecionada_id = self.selecionar_lista(usuario_id)
-                if lista_selecionada_id:
-                        tarefas = self.controller.buscar_tarefas_por_lista(lista_selecionada_id)
-                        if len(tarefas) > 0:
-                                tarefas_mapeadas = [Tarefa(*tarefa) for tarefa in tarefas]
-                                os.system('cls' if os.name=='nt' else 'clear')
-                                for tarefa in tarefas_mapeadas:
-                                        for x in range(tarefa.tempo, 0, -1):
-                                                segundos = x % 60
-                                                minutos = int(x / 60) % 60 
-                                                horas = int(x / 3600)
-                                                print(tarefa.descricao)
-                                                print(f'{horas:02}:{minutos:02}:{segundos:02}')
-                                                time.sleep(1)
-                                                os.system('cls' if os.name=='nt' else 'clear')
-                                        print("Tarefa concluída!")
-                        else:
-                                print("Essa lista não possui tarefas")
-                        input("Pressione enter para continuar.")
+        def iniciar_execucao_lista(self, lista_id):
+                tarefas = self.controller.buscar_tarefas_por_lista(lista_id)
+                if len(tarefas) > 0:
+                        tarefas_mapeadas = [Tarefa(*tarefa) for tarefa in tarefas]
+                        os.system('cls' if os.name=='nt' else 'clear')
+                        for tarefa in tarefas_mapeadas:
+                                for x in range(tarefa.tempo, 0, -1):
+                                        segundos = x % 60
+                                        minutos = int(x / 60) % 60 
+                                        horas = int(x / 3600)
+                                        print(tarefa.descricao)
+                                        print(f'{horas:02}:{minutos:02}:{segundos:02}')
+                                        time.sleep(1)
+                                        os.system('cls' if os.name=='nt' else 'clear')
+                                print("Tarefa concluída!")
+                else:
+                        print("Essa lista não possui tarefas")

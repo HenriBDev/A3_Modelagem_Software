@@ -12,6 +12,7 @@ class View:
         def wrapper(self, *args, **kwargs):
             os.system('cls' if os.name=='nt' else 'clear')
             retorno = action(self, *args, **kwargs)
+            input("Pressione enter para continuar.")
             os.system('cls' if os.name=='nt' else 'clear')
             return retorno
         return wrapper

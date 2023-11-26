@@ -1,14 +1,14 @@
 import sys
+import os
 from Views.View import View
 
 class MenuView(View):
     
-    @View.view_action
     def menu_inicial(self):
         
+        os.system('cls' if os.name=='nt' else 'clear')
+        
         return input(
-            "------------Menu Inicial------------\n"
-            "O que deseja fazer?\n"
             "1 - Fazer Login\n"
             "2 - Cadastrar usuário\n"
             "3 - Encerrar programa\n"
@@ -16,8 +16,9 @@ class MenuView(View):
             "Selecione: "
         )
         
-    @View.view_action
     def menu_principal(self, usuario_logado):
+        
+        os.system('cls' if os.name=='nt' else 'clear')
             
         return input(
             "------------ORGANIZADOR DE TAREFAS------------\n"
@@ -26,31 +27,19 @@ class MenuView(View):
             "2 - Excluir lista\n"
             "3 - Criar tarefa\n"
             "4 - Editar tarefa\n"
-            "5 - Executar lista de tarefas\n"
-            "6 - Excluir tarefa\n"
-            "7 - Checar as listas\n"
+            "5 - Excluir tarefa\n"
+            "6 - Executar lista de tarefas\n"
+            "7 - Exibir suas listas e tarefas\n"
             "8 - Trocar de usuário\n"
             "9 - Encerrar programa\n"
             "\n"
             "Selecione: "
         )
-    
-    @View.view_action
-    def voltar_menu_inicial(self):
-        return input(
-            "Deseja voltar para o menu inicial? [S/N]\n"
-            "(N)"
-        ).strip().upper() == "S"
         
     @View.view_action
     def valor_digitado_invalido(self):
+        print("Valor digitado inválido!")
         
-        return input(
-            "Valor digitado inválido!\n"
-            "Pressione enter para continuar"
-        )
-        
-    @View.view_action
     def encerrar_programa(self):
         
         return sys.exit("Encerrando programa...")

@@ -19,24 +19,10 @@ class Main():
                 valor_digitado = self._menu_view.menu_inicial()
                 
                 if(valor_digitado == '1'):
-                    
-                    while True:
-                        
-                        self.usuario_logado = self._usuario_view.logar_usuario()
-                        if not self.usuario_logado: 
-                            if self._menu_view.voltar_menu_inicial() == True: break
-                        else: break
-                        
+                    self.usuario_logado = self._usuario_view.logar_usuario()
                     if bool(self.usuario_logado): break
                     
-                elif(valor_digitado == '2'): 
-                    
-                    while True:
-                        
-                        usuario_foi_cadastrado = self._usuario_view.cadastrar_usuario()
-                        if not usuario_foi_cadastrado: 
-                            if self._menu_view.voltar_menu_inicial() == True: break
-                        else: break
+                elif(valor_digitado == '2'): self._usuario_view.cadastrar_usuario()
                     
                 elif(valor_digitado == '3'): self._menu_view.encerrar_programa()
                     
@@ -58,11 +44,13 @@ class Main():
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
                     if(id_lista_selecionada): self._tarefa_view.editar_tarefa(id_lista_selecionada)
                     
-                elif valor_digitado == '5': self._lista_view.iniciar_execucao_lista(self.usuario_logado.id)
+                elif valor_digitado == '5': 
+                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                    if(id_lista_selecionada): self._tarefa_view.excluir_tarefa(id_lista_selecionada)
                     
                 elif valor_digitado == '6':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    if(id_lista_selecionada): self._tarefa_view.excluir_tarefa(id_lista_selecionada)
+                    if(id_lista_selecionada): self._lista_view.iniciar_execucao_lista(self.usuario_logado.id)
                     
                 elif valor_digitado == '7': self._lista_view.checar_listas(self.usuario_logado.id)
                     
