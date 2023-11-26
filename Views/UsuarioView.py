@@ -3,6 +3,7 @@ from Domains.Usuario import Usuario
 
 class UsuarioView(View): 
     
+    @View.view_action
     def logar_usuario(self) -> object|bool:
 
         print("Logando usuário")
@@ -17,7 +18,8 @@ class UsuarioView(View):
                 "Pressione enter para continuar"
             )
             return False
-    
+        
+    @View.view_action
     def cadastrar_usuario(self) -> bool:
 
         print("Cadastrando usuário")

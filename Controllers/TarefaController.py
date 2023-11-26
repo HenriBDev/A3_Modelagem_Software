@@ -29,7 +29,7 @@ class TarefaController(Controller):
     def concluir_tarefa(self, tarefa_id):
         self.model.concluir_tarefa_por_id(tarefa_id)
         
-    def exibir_tarefas(self,lista_id):
+    def buscar_tarefas_por_lista(self,lista_id):
         return self.model.buscar_tarefas_por_lista(lista_id)
     
     def timer(self,tarefa_id):

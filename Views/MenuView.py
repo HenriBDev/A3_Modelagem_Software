@@ -2,7 +2,8 @@ import sys
 from Views.View import View
 
 class MenuView(View):
-            
+    
+    @View.view_action
     def menu_inicial(self):
         
         return input(
@@ -15,6 +16,7 @@ class MenuView(View):
             "Selecione: "
         )
         
+    @View.view_action
     def menu_principal(self, usuario_logado):
             
         return input(
@@ -32,13 +34,15 @@ class MenuView(View):
             "\n"
             "Selecione: "
         )
-        
+    
+    @View.view_action
     def voltar_menu_inicial(self):
         return input(
             "Deseja voltar para o menu inicial? [S/N]\n"
             "(N)"
         ).strip().upper() == "S"
         
+    @View.view_action
     def valor_digitado_invalido(self):
         
         return input(
@@ -46,6 +50,7 @@ class MenuView(View):
             "Pressione enter para continuar"
         )
         
+    @View.view_action
     def encerrar_programa(self):
         
         return sys.exit("Encerrando programa...")

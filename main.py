@@ -12,8 +12,6 @@ class Main():
         self._tarefa_view = self._view_factory.instanciar_view('tarefa')
         self.usuario_logado = None
         
-        os.system('cls' if os.name=='nt' else 'clear')
-        
         while True:
             
             while True:
@@ -54,19 +52,19 @@ class Main():
                     
                 elif valor_digitado == '3':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    self._tarefa_view.cadastrar_tarefa(id_lista_selecionada)
+                    if(id_lista_selecionada): self._tarefa_view.cadastrar_tarefa(id_lista_selecionada)
                     
                 elif valor_digitado == '4':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    self._tarefa_view.editar_tarefa(id_lista_selecionada)
+                    if(id_lista_selecionada): self._tarefa_view.editar_tarefa(id_lista_selecionada)
                     
                 elif valor_digitado == '5': self._lista_view.iniciar_execucao_lista(self.usuario_logado.id)
                     
                 elif valor_digitado == '6':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    self._tarefa_view.excluir_tarefa(id_lista_selecionada)
+                    if(id_lista_selecionada): self._tarefa_view.excluir_tarefa(id_lista_selecionada)
                     
-                elif valor_digitado == '7': self._lista_view.exibir_listas(self.usuario_logado.id)
+                elif valor_digitado == '7': self._lista_view.checar_listas(self.usuario_logado.id)
                     
                 elif valor_digitado == '8': break
                 
