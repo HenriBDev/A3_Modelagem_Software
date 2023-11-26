@@ -28,7 +28,7 @@ class TarefaModel(Model):
                     query += " rowid=(?) AND"
                 filtro_args.append(filtros[nome_filtro])
             query = query[:-4]
-            
+
         result_query = super().executar_query(query, tuple(filtro_args))
         
         result_domains = []
