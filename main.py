@@ -3,15 +3,14 @@ from Views.ViewFactory import ViewFactory
 
 class Main():
     
-    def __init__(self):
+    def __init__(self) -> None:
         
         self._view_factory = ViewFactory()
         self._menu_view = self._view_factory.instanciar_view('menu')
         self._usuario_view = self._view_factory.instanciar_view('usuario')
         self._lista_view = self._view_factory.instanciar_view('lista')
         self._tarefa_view = self._view_factory.instanciar_view('tarefa')
-        
-        os.system('cls' if os.name=='nt' else 'clear')
+        self.usuario_logado = None
         
         while True:
             
@@ -39,19 +38,21 @@ class Main():
                     
                 elif valor_digitado == '3':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    self._tarefa_view.cadastrar_tarefa(id_lista_selecionada)
+                    if(id_lista_selecionada): self._tarefa_view.cadastrar_tarefa(id_lista_selecionada)
                     
                 elif valor_digitado == '4':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    self._tarefa_view.editar_tarefa(id_lista_selecionada)
+                    if(id_lista_selecionada): self._tarefa_view.editar_tarefa(id_lista_selecionada)
                     
-                elif valor_digitado == '5': self._lista_view.iniciar_execucao_lista(self.usuario_logado.id)
+                elif valor_digitado == '5': 
+                    id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
+                    if(id_lista_selecionada): self._tarefa_view.excluir_tarefa(id_lista_selecionada)
                     
                 elif valor_digitado == '6':
                     id_lista_selecionada = self._lista_view.selecionar_lista(self.usuario_logado.id)
-                    self._tarefa_view.excluir_tarefa(id_lista_selecionada)
+                    if(id_lista_selecionada): self._lista_view.iniciar_execucao_lista(id_lista_selecionada)
                     
-                elif valor_digitado == '7': self._lista_view.exibir_listas(self.usuario_logado.id)
+                elif valor_digitado == '7': self._lista_view.checar_listas(self.usuario_logado.id)
                     
                 elif valor_digitado == '8': break
                 

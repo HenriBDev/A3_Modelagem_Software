@@ -3,9 +3,7 @@ import os
 
 class Factory:
     
-    tipo_factory = None
-    
-    def __init__(self, tipo_factory, diretorio_factory):
+    def __init__(self, tipo_factory: str, diretorio_factory: str) -> None:
         
         self.tipo_factory = tipo_factory.capitalize()
         
@@ -13,7 +11,7 @@ class Factory:
             nome_arquivo[:- (3 + len(tipo_factory))]: getattr(importlib.import_module(f"{self.tipo_factory}s.{nome_arquivo[:-3]}"), nome_arquivo[:-3]) 
         for nome_arquivo in os.listdir(diretorio_factory) if nome_arquivo.endswith(f"{self.tipo_factory}.py")}
         
-    def criar_instancia(self, nome_instancia):
+    def criar_instancia(self, nome_instancia: str) -> object:
         
         nome_instancia = nome_instancia.capitalize()
         

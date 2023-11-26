@@ -2,10 +2,10 @@ from Controllers.Controller import Controller
 
 class UsuarioController(Controller):
     
-    def validar_dados(self, email, senha) -> bool:
+    def usuario_existe(self, email, senha) -> bool:
         return bool(self.buscar_usuario(email, senha))
     
-    def verificar_usuario_existe(self, email) -> bool:
+    def email_ja_cadastrado(self, email) -> bool:
         return bool(self.model.buscar_usuario_por_email(email))
     
     def cadastrar_usuario(self, email: str, senha: str, nome: str):
