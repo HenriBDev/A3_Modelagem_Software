@@ -1,4 +1,4 @@
-class Domain():
+class DomainFactory():
     
     def __init__(self, campos):
         for nome_campo in campos.keys():
