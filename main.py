@@ -12,7 +12,7 @@ class Main():
         
         while True:
             
-            while str(self.id_usuario_logado) != "False":
+            while str(self.id_usuario_logado) == "False":
                 
                 match self._menu_view.menu_inicial():
                     

@@ -1,6 +1,7 @@
 import sys
 import os
 from Views.View import View
+from Controllers.ControllerFactory import ControllerFactory
 
 class MenuView(View):
     
@@ -16,13 +17,19 @@ class MenuView(View):
             "Selecione: "
         )
         
-    def menu_principal(self, usuario_logado):
+    def menu_principal(self, id_usuario_logado):
+        
+        msg_retorno, usuario = ControllerFactory().criar_instancia('usuario').buscar_usuario_por_id(id_usuario_logado)
+        
+        if msg_retorno != "ok":
+            print(msg_retorno)
+            return False
         
         os.system('cls' if os.name=='nt' else 'clear')
             
         return input(
             "------------ORGANIZADOR DE TAREFAS------------\n"
-            f"Boas vindas {usuario_logado.nome.capitalize()}, o que deseja fazer?\n"
+            f"Boas vindas {usuario.nome.capitalize()}, o que deseja fazer?\n"
             "1 - Criar lista\n"
             "2 - Excluir lista\n"
             "3 - Criar tarefa\n"
